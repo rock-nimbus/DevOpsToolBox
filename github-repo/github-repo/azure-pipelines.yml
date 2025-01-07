@@ -30,7 +30,7 @@ steps:
     # Configure Git user
     echo "Configuring Git user..."
     git config user.name "Azure DevOps Pipeline"
-    git config user.email "ADO@pipeline.com"
+    git config user.email "pipeline@yourdomain.com"
 
     # Commit and push changes
     echo "Committing and pushing changes..."
