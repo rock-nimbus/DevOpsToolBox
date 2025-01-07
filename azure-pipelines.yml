@@ -22,7 +22,7 @@ steps:
 
     # Copy files from Azure DevOps repository to the GitHub repository
     echo "Copying files to GitHub repository..."
-    rsync -av --delete --exclude='.git' ./ github-repo/
+    rsync -av --delete --exclude='.git' --exclude='github-repo/' ./ github-repo/
 
     # Navigate to the GitHub repository
     cd github-repo
