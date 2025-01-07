@@ -1,0 +1,44 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self  # Check out the Azure DevOps repository
+
+- bash: |
+    set -e  # Exit on error
+    echo "Starting sync process..."
+
+    # Clone the GitHub repository
+    echo "Cloning the GitHub repository..."
+    git clone https://$(GITHUB_PAT)@github.com/$REPO_NAME github-repo
+
+    # Copy files from Azure DevOps repository to the GitHub repository
+    echo "Copying files to GitHub repository..."
+    rsync -av --exclude='.git' ./ github-repo/
+
+    # Navigate to the GitHub repository
+    cd github-repo
+
+    # Configure Git user
+    echo "Configuring Git user..."
+    git config user.name "Azure DevOps Pipeline"
+    git config user.email "pipeline@yourdomain.com"
+
+    # Commit and push changes
+    echo "Committing and pushing changes..."
+    git add .
+    git commit -m "Sync from Azure DevOps pipeline"
+    git push origin main --force
+
+    echo "Sync complete!"
+  displayName: 'Sync Azure DevOps to GitHub'
+  env:
+    GITHUB_PAT: $(GITHUB_PAT)  # Use GitHub PAT for authentication
