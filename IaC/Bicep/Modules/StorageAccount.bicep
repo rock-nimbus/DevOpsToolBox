@@ -17,7 +17,7 @@ param skuName string = 'Standard_LRS'
 
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
-  name: '${projectId}${environment}${location_short}${uniqueId}sa'
+  name: '${projectId}${environment}${location_short}sa${uniqueId}'
   location: resourceGroup().location
   sku: {
     name: skuName

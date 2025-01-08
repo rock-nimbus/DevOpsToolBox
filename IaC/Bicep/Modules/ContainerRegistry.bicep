@@ -9,7 +9,7 @@ param tags object
 // Azure Container Registry
 
 resource ACR 'Microsoft.ContainerRegistry/registries@2023-07-01' = {
-  name: '${projectId}-${environment}-${location_short}-${uniqueId}-acr'
+  name: '${projectId}${environment}${location_short}acr${uniqueId}'
   location: resourceGroup().location
   sku: {
     name: skuName
